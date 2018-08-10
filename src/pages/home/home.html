@@ -1,14 +1,19 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Lewis' ToDo List
     </ion-title>
+    <ion-buttons start><button clear ion-button (click) = "dummyData()">Dummy Data</button></ion-buttons>
+    <ion-buttons end><button clear ion-button (click) = "newTask(listItem)">New Task</button></ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <button ion-item *ngFor="let listItem of listItems" (click)="itemSelected(listItem)">
+      <!-- {{ listItem.taskTitle }} -->
+      <b>{{ listItem.id }}</b>
+      {{ listItem.title }}
+    </button>  
+  </ion-list>
 </ion-content>

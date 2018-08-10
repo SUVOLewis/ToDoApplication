@@ -1,0 +1,65 @@
+<!--
+  Generated template for the TodoDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{item.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- <h1>{{item.id}}</h1>
+  <p>{{item.title}}</p> -->
+
+    <form [formGroup]="formgroup" (ngSubmit)="updateOrAddTask(formgroup.value)">
+      <ion-list>
+        <ion-item>
+          <ion-label style="color: grey;">
+            User ID: 
+          </ion-label>
+          <ion-input style="color: grey;" readonly type="text" formControlName="taskUserID">{{item.userId}}</ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label style="color: grey;">
+              ID: 
+            </ion-label>
+            <ion-input style="color: grey;" readonly type="text" formControlName="taskID">{{item.id}}</ion-input>
+          </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Task Title: 
+          </ion-label>
+            <ion-input type="text" formControlName="taskTitle"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="taskTitle.hasError('required') && taskTitle.touched">
+          <p>Error: Task Title is required!</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>
+              Task Description: 
+          </ion-label>
+            <ion-input type="text" formControlName="taskDesc"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="taskDesc.hasError('required') && taskDesc.touched">
+          <p>Error: Task Description is required!</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Completed: {{item.completed}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <button clear type="submit" ion-button>Submit</button>
+    </form>
+
+</ion-content>
