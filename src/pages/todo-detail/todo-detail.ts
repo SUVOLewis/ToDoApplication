@@ -78,7 +78,7 @@ export class TodoDetailPage {
           description: task.taskDesc,
           completed: task.taskCompleted
         };
-      this.listItems.unshift(newitem);
+      this.listItems.push(newitem);
       this.item.title = task.taskTitle; // Change title to new Task
     } else {
       // Update Existing Entry
@@ -86,6 +86,7 @@ export class TodoDetailPage {
       this.item.description = task.taskDesc;
       this.item.completed = task.taskCompleted;
     }
+    this.navCtrl.pop();
   }
 
   ionViewDidLoad() {
