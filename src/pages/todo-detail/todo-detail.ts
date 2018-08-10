@@ -2,13 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'; 
 import { HomePage } from '../home/home';
-
-/**
- * Generated class for the TodoDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ToDoService } from '../../services/to-do/to-do.service';
 
 @IonicPage()
 @Component({
@@ -30,7 +24,8 @@ export class TodoDetailPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              public formbuilder: FormBuilder) {
+              public formbuilder: FormBuilder,
+              public ToDoServe: ToDoService) {
     
     // debugger
     this.item = navParams.get('item');
@@ -67,7 +62,6 @@ export class TodoDetailPage {
   }
 
   updateOrAddTask(task) {
-    debugger;
     if(task.taskID > this.lastIDUsed) {
       // Create new entry
       let newitem: newItem = 
@@ -90,9 +84,8 @@ export class TodoDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TodoDetailPage');
+    console.log('Add/Edit Page Successfully Loaded');
   }
-
 }
 
 class newItem {

@@ -8,6 +8,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoDetailPage } from '../pages/todo-detail/todo-detail';
+import { ToDoService } from '../services/to-do/to-do.service';
+import { TodoItem } from '../models/todoitem';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { TodoDetailPage } from '../pages/todo-detail/todo-detail';
   providers: [
     StatusBar,
     SplashScreen,
+    ToDoService,
+    TodoItem,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -3,42 +3,21 @@ import { NavController } from 'ionic-angular';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { TodoDetailPage } from '../todo-detail/todo-detail';
+import { ToDoService } from '../../services/to-do/to-do.service';
+import { TodoItem } from '../../models/todoitem';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  listItems: any[];
+  todoItems: any[];
 
-  constructor(public navCtrl: NavController, public http: HttpClient) {
-    this.loadToDo();
-  }
+  constructor(public navCtrl: NavController, 
+              public http: HttpClient,
+              public todoService: ToDoService) {
 
-  dummyData() {
-    this.listItems = [];
-      for (let i = 0; i < 6; i++) {
-        this.listItems.push({
-          taskTitle: 'Task ' + i,
-          id: i
-        });
-        
-      }
-  }
-
-  loadToDo() {
-    let todoData: Observable<any>;
-    todoData = this.http.get('https://jsonplaceholder.typicode.com/todos/');
-    todoData.subscribe(result => {
-      this.listItems = result;
-    })
-  }
-
-  newTask(item, listItems) {
-    this.navCtrl.push(TodoDetailPage, {
-      item: item,
-      listItems: this.listItems
-    })
+    console.log(this.todoItems);
   }
 
   itemSelected(item) {
@@ -47,4 +26,12 @@ export class HomePage {
     });
   }
 
+  ionViewWillLoad(){
+    this.todoService.toDoItemsSubject.subscribe((todoItems: Array<TodoItem>) => {
+      debugger;
+      this.todoItems = todoItems;
+    })
+
+    this.todoService.loadToDo();
+  }
 }

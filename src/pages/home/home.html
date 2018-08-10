@@ -10,7 +10,7 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let listItem of listItems" (click)="itemSelected(listItem)">
+    <button ion-item *ngFor="let listItem of todoItems" (click)="itemSelected(listItem)">
       <!-- {{ listItem.taskTitle }} -->
       <b>{{ listItem.id }}</b>
       {{ listItem.title }}
