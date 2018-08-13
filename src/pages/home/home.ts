@@ -17,7 +17,11 @@ export class HomePage {
               public http: HttpClient,
               public todoService: ToDoService) {
 
-    console.log(this.todoItems);
+      this.todoService.toDoItemsSubject.subscribe((todoItems: Array<TodoItem>) => {
+      this.todoItems = todoItems;
+
+      console.log('home component subscribed');
+    })
   }
 
   itemSelected(item) {
@@ -26,12 +30,13 @@ export class HomePage {
     });
   }
 
-  ionViewWillLoad(){
-    this.todoService.toDoItemsSubject.subscribe((todoItems: Array<TodoItem>) => {
-      debugger;
-      this.todoItems = todoItems;
-    })
+  newTask(item) {
+    this.navCtrl.push(TodoDetailPage, {
+      item: item
+    });
+  }
 
-    this.todoService.loadToDo();
+  ionViewWillLoad(){
+    
   }
 }

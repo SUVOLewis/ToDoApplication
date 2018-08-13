@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'; 
 import { HomePage } from '../home/home';
 import { ToDoService } from '../../services/to-do/to-do.service';
+import { TodoItem, ITodoItem } from '../../models/todoitem';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,7 @@ import { ToDoService } from '../../services/to-do/to-do.service';
   templateUrl: 'todo-detail.html',
 })
 export class TodoDetailPage {
-  item: any;
+  item: ITodoItem;
   listItems: any[];
   lastIDUsed: number;
 
@@ -27,25 +28,12 @@ export class TodoDetailPage {
               public formbuilder: FormBuilder,
               public ToDoServe: ToDoService) {
     
-    // debugger
     this.item = navParams.get('item');
     this.listItems = navParams.get('listItems');
-    console.log(this.listItems);
-    
-    if(this.item === undefined) {
-      this.lastIDUsed = this.listItems[this.listItems.length - 1].id;
-      let newitem: newItem = 
-        {
-          userId: 1,
-          id: this.lastIDUsed + 1,
-          title: 'New Task',
-          description: 'New Description',
-          completed: false
-        };
-      this.item = newitem;
-    }
 
-    // this.item = navParams.get('item');
+    // this.ToDoServe.loadToDo();
+    
+    this.item = this.ToDoServe.checkIfNewTask(this.listItems, this.item);
 
     this.formgroup = formbuilder.group({
       taskUserID: [this.item.userId],
@@ -62,36 +50,17 @@ export class TodoDetailPage {
   }
 
   updateOrAddTask(task) {
-    if(task.taskID > this.lastIDUsed) {
-      // Create new entry
-      let newitem: newItem = 
-        {
-          userId: task.taskUserID,
-          id: task.taskID,
-          title: task.taskTitle,
-          description: task.taskDesc,
-          completed: task.taskCompleted
-        };
-      this.listItems.push(newitem);
-      this.item.title = task.taskTitle; // Change title to new Task
-    } else {
-      // Update Existing Entry
-      this.item.title = task.taskTitle;
-      this.item.description = task.taskDesc;
-      this.item.completed = task.taskCompleted;
-    }
+    this.ToDoServe.updateOrAddTask(task);
+
     this.navCtrl.pop();
   }
 
   ionViewDidLoad() {
-    console.log('Add/Edit Page Successfully Loaded');
-  }
-}
 
-class newItem {
-  userId: number;
-  id: number;
-  title: string;
-  description: string;
-  completed: false;
+    this.ToDoServe.toDoItemsSubject.subscribe((todoItems: Array<TodoItem>) => {
+      this.listItems = todoItems;
+
+      console.log('Details component subscribed')
+    })
+  }
 }
