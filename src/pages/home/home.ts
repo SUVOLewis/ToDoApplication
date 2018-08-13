@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Observable } from '../../../node_modules/rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { TodoDetailPage } from '../todo-detail/todo-detail';
 import { ToDoService } from '../../services/to-do/to-do.service';

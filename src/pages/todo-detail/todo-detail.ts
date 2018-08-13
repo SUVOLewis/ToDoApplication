@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'; 
-import { HomePage } from '../home/home';
 import { ToDoService } from '../../services/to-do/to-do.service';
 import { TodoItem, ITodoItem } from '../../models/todoitem';
 
